@@ -26,6 +26,7 @@ repositories {
         name = 'CodeMC-Repo'
         url 'http://repo.codemc.io/repository/maven-public'
     }
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.bstats.org/content/repositories/releases' }
 }
@@ -36,6 +37,7 @@ dependencies {
     // This lets us use the full ShatteredCore in the standalone.
     compile group: 'com.github.ShatteredSuite', name: 'ShatteredCore', version: project.property('coreVersion'), classifier: 'dist'
     compileOnly group: 'com.github.ShatteredSuite', name: 'ShatteredCore', version: project.property('coreVersion'), classifier: 'api'
+    compileOnly group: 'com.comphenix.protocol', name: 'ProtocolLib', version: '4.5.0'
 }
 
 artifacts {
