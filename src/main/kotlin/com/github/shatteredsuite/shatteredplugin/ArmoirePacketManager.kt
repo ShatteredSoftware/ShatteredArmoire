@@ -10,8 +10,12 @@ class ArmoirePacketManager(private val armoire: ShatteredArmoire)
     : PacketAdapter(armoire, ListenerPriority.LOWEST, PacketType.Play.Server.PLAYER_INFO) {
     override fun onPacketSending(event: PacketEvent?) {
         super.onPacketSending(event)
-        var skinData: SkinData = armoire.config().defaultSkinData()
-        event?.player?.uniqueId?.toString()?.let { skinData = armoire.playerRepo.get(it) ?: return }
+        val uuid = event?.player?.uniqueId?.toString()
+        val skinData = if (uuid != null) {
+            armoire.playerRepo.get(uuid)
+        }
+        else armoire.config().defaultSkinData()
+
         val profile = WrappedGameProfile(event?.player?.uniqueId ?: UUID.randomUUID(), "")
         profile.properties.removeAll("textures")
         profile.properties.put("textures", skinData.toTextureProperty())
